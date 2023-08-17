@@ -388,4 +388,39 @@ MongoDB Enterprise > db.products.find({
 ...
 ... name:"mouse"})
 { "_id" : ObjectId("64de943bde1e2faf1d1c5902"), "name" : "mouse", "description" : "razer mouse", "tags" : [ "computer", "gaming" ], "quantity" : 14, "created_at" : ISODate("2023-08-17T21:42:19.902Z") }
+
+MongoDB Enterprise > db.products.find({price:999.99})
+{ "_id" : ObjectId("64de9338de1e2faf1d1c5901"), "name" : "laptop", "price" : 999.99 }
+MongoDB Enterprise > db.products.find({price:999.99}).pretty()
+{
+        "_id" : ObjectId("64de9338de1e2faf1d1c5901"),
+        "name" : "laptop",
+        "price" : 999.99
+}
+MongoDB Enterprise >
+
+MongoDB Enterprise > db.products.find()
+{ "_id" : ObjectId("64de92fade1e2faf1d1c5900"), "name" : "keyboard" }
+{ "_id" : ObjectId("64de9338de1e2faf1d1c5901"), "name" : "laptop", "price" : 999.99 }
+{ "_id" : ObjectId("64de943bde1e2faf1d1c5902"), "name" : "mouse", "description" : "razer mouse", "tags" : [ "computer", "gaming" ], "quantity" : 14, "created_at" : ISODate("2023-08-17T21:42:19.902Z") }
+{ "_id" : ObjectId("64de943bde1e2faf1d1c5903"), "name" : "monitor", "description" : "benq", "tags" : [ "computer", "gaming" ], "quantity" : 5, "created_at" : ISODate("2023-08-17T21:42:19.902Z") }
+
+MongoDB Enterprise > db.products.find({"tags": "computer"})
+{ "_id" : ObjectId("64de943bde1e2faf1d1c5902"), "name" : "mouse", "description" : "razer mouse", "tags" : [ "computer", "gaming" ], "quantity" : 14, "created_at" : ISODate("2023-08-17T21:42:19.902Z") }
+{ "_id" : ObjectId("64de943bde1e2faf1d1c5903"), "name" : "monitor", "description" : "benq", "tags" : [ "computer", "gaming" ], "quantity" : 5, "created_at" : ISODate("2023-08-17T21:42:19.902Z") }
+MongoDB Enterprise > db.products.find({"tags": "computer", "name": "monitor"})
+{ "_id" : ObjectId("64de943bde1e2faf1d1c5903"), "name" : "monitor", "description" : "benq", "tags" : [ "computer", "gaming" ], "quantity" : 5, "created_at" : ISODate("2023-08-17T21:42:19.902Z") }
+MongoDB Enterprise >
+
+MongoDB Enterprise > db.products.find({"tags":"computer"})
+{ "_id" : ObjectId("64de943bde1e2faf1d1c5902"), "name" : "mouse", "description" : "razer mouse", "tags" : [ "computer", "gaming" ], "quantity" : 14, "created_at" : ISODate("2023-08-17T21:42:19.902Z") }
+{ "_id" : ObjectId("64de943bde1e2faf1d1c5903"), "name" : "monitor", "description" : "benq", "tags" : [ "computer", "gaming" ], "quantity" : 5, "created_at" : ISODate("2023-08-17T21:42:19.902Z") }
+
+MongoDB Enterprise > db.products.find({"tags":"computer"}, {"name":1,"description":1})
+{ "_id" : ObjectId("64de943bde1e2faf1d1c5902"), "name" : "mouse", "description" : "razer mouse" }
+{ "_id" : ObjectId("64de943bde1e2faf1d1c5903"), "name" : "monitor", "description" : "benq" }
+
+MongoDB Enterprise > db.products.find({"tags":"computer"}, {"name":1,"description":1, "_id":0})
+{ "name" : "mouse", "description" : "razer mouse" }
+{ "name" : "monitor", "description" : "benq" }
 MongoDB Enterprise >
