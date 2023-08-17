@@ -1,0 +1,33 @@
+{
+    "name_product": "Huawei",
+    "price": 100,
+    "active": false,
+    "created_at": new Date("12/12/1999"),
+    "somedata": [1,"a",[]],
+    "facturer": {
+        "name": "P60 PRO",
+        "version": "Aqua",
+        "location": {
+            "city": "China",
+            "address": "ChinaTown"
+        }
+    }
+}
+
+db.products.insert([
+    {
+        "name": "mouse",
+        "description": "razer mouse",
+        "tags": ["computer", "gaming"],
+        "quantity": 14,
+        "created_at": new Date()
+
+    },
+    {
+        "name": "monitor",
+        "description": "benq",
+        "tags": ["computer", "gaming"],
+        "quantity": 5,
+        "created_at": new Date()
+    }
+])
