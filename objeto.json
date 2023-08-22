@@ -14,7 +14,7 @@
     }
 }
 
-db.products.insert([
+db.productos.insert([
     {
         "name": "mouse",
         "description": "razer mouse",
@@ -28,6 +28,37 @@ db.products.insert([
         "description": "benq",
         "tags": ["computer", "gaming"],
         "quantity": 5,
+        "created_at": new Date()
+    },
+    {
+        "name": "xbox",
+        "description": "gaming console",
+        "tags": ["entertainment", "gaming"],
+        "quantity": 7,
+        "created_at": new Date()
+
+    },
+    {
+        "name": "huawei p60 pro",
+        "description": "smartphone",
+        "tags": ["computer", "gaming"],
+        "quantity": 3,
+        "created_at": new Date()
+    },
+    {
+        "name": "skullcandy",
+        "description": "headphones",
+        "tags": ["gaming", "music"],
+        "quantity": 3,
+        "price": 100.99,
+        "created_at": new Date()
+    },
+    {
+        "name": "Backpack",
+        "description": "backpack school",
+        "tags": ["study", "school"],
+        "quantity": 5,
+        "price": 50.99,
         "created_at": new Date()
     }
 ])
