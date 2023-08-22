@@ -301,126 +301,139 @@ MongoDB Enterprise > db.products.find().pretty()
         }
 }
 
+PARTE 2)
+comandos de la clase:
 
-MongoDB Enterprise > use mystore
-switched to db mystore
-MongoDB Enterprise > db
-mystore
-MongoDB Enterprise > db.createCollection("productos")
-{ "ok" : 1 }
-MongoDB Enterprise > show collections
-productos
-MongoDB Enterprise > db.products.insert({"name": "keyboard"})
+show dbs
+db  = (test) base de datos por defecto
+use prueba_collections
+db = (prueba collections)
+db.createCollections("productos")
+
+db.productos.insert([
+    {
+        "name": "mouse",
+        "description": "razer mouse",
+        "tags": ["computer", "gaming"],
+        "quantity": 14,
+        "created_at": new Date()
+
+    },
+    {
+        "name": "monitor",
+        "description": "benq",
+        "tags": ["computer", "gaming"],
+        "quantity": 5,
+        "created_at": new Date()
+    },
+    {
+        "name": "xbox",
+        "description": "gaming console",
+        "tags": ["entertainment", "gaming"],
+        "quantity": 7,
+        "created_at": new Date()
+
+    },
+    {
+        "name": "huawei p60 pro",
+        "description": "smartphone",
+        "tags": ["computer", "gaming"],
+        "quantity": 3,
+        "created_at": new Date()
+    },
+    {
+        "name": "skullcandy",
+        "description": "headphones",
+        "tags": ["gaming", "music"],
+        "quantity": 3,
+        "price": 100.99,
+        "created_at": new Date()
+    },
+    {
+        "name": "Backpack",
+        "description": "backpack school",
+        "tags": ["study", "school"],
+        "quantity": 5,
+        "price": 50.99,
+        "created_at": new Date()
+    }
+])
+
+
+db.productos.count()
+db.productos.find().forEach(producto => print ("Nombre Producto:" + producto.name))
+db.productos.find().forEach(producto => print ("Nombre Producto:" + producto.price))
+db.productos.find()
+
+            colocamos dos objetos, en uno el que queremos buscar, 
+            en el otro lo que queremos reemplazar
+
+             db.productos.update({buscar} , {reemplazar todo el documento})
+
+db.productos.update({"name": "keyboard"} , {"name": "playStation 5"})
+db.productos.update({"price": 40.50} , {"name": "keyboard", "price": 99.99})
+
+db.productos.insert([
+    {
+        "name": "keyboard",
+        "description": "gaming keyboard",
+        "tags": ["computer", "gaming"],
+        "price": 20.99
+        "quantity": 2,
+        "created_at": new Date()
+
+    }
+])
+
+db.productos.update({"price": 40.50} , {"name": "keyboard", "price": 30.99})
+db.productos.find()
+db.productos.insert([
+        {
+        "name": "Laptop MSI CYBORG 15",
+        "tags": ["computer", "gaming"],
+        "price": 400.99,
+        "quantity": 4,
+        "created_at": new Date()
+     }
+])
+
+db.productos.update({"name": "laptop"},{$set: {"description": "the best msi gaming laptop"}})
+db.productos.update({"name": "touchpad"},{$set: {"description": "Touchpad gaming"}}, {upsert: true})
+db.productos.update({"name": "Backpack"} , {$inc: {"price": 0.01}})
+db.productos.count()
+db.productos.find.limit(3)
+db.productos.find.limit(3).pretty()
+
+En este caso estamos aplicando un filtro vacío (se devuelven todos los documentos),
+ y estamos diciendo que solo queremos devolver el campo nombre. MongoDB, por defecto, 
+ nos devuelve también el _id. Para no mostrarlo deberemos especificar
+  de forma explícita que no lo queremos. Se haría así:
+
+db.productos.find({},{"name":1,"_id":0})
+
+Por tanto, las proyecciones se realizan indicando el nombre del campo, 
+añadiendo un 1 si queremos mostrarlo y un 0 si no queremos.
+
+
+ db.productos.find({},{"name":1, "price":1, "_id":0})
+
+ también podemos renombrar valores
+db.productos.update({"name": "Laptop MSI CYBORG 15"} , {$rename: {"name":"nombre"}})
+
+también podemos remover valores
+
+db.productos.remove({"name": "touchpad"})
+
+o eliminar todos 
+
+db.productos.find({})
+db.productos.remove({})
+
+
+mongo db compass:
+shell de mongo 
+MongoDB Enterprise > db.productos.insert({"name":"monitor Benq"})
 WriteResult({ "nInserted" : 1 })
-MongoDB Enterprise > db.products.find()
-{ "_id" : ObjectId("64de92fade1e2faf1d1c5900"), "name" : "keyboard" }
-MongoDB Enterprise > db.products.find().pretty()
-{ "_id" : ObjectId("64de92fade1e2faf1d1c5900"), "name" : "keyboard" }
-MongoDB Enterprise > db.products.insert({"name": "laptop", "price": 999.99})
-WriteResult({ "nInserted" : 1 })
-MongoDB Enterprise > db.products.find()
-{ "_id" : ObjectId("64de92fade1e2faf1d1c5900"), "name" : "keyboard" }
-{ "_id" : ObjectId("64de9338de1e2faf1d1c5901"), "name" : "laptop", "price" : 999.99 }
-MongoDB Enterprise > db.products.insert([
-...     {
-...         "name": "mouse",
-...         "description": "razer mouse",
-...         "tags": ["computer", "gaming"],
-...         "quantity": 14,
-...         "created_at": new Date()
-...
-...     },
-...     {
-...         "name": "monitor",
-...         "description": "benq",
-...         "tags": ["computer", "gaming"],
-...         "quantity": 5,
-...         "created_at": new Date()
-...     }
-... ])
-BulkWriteResult({
-        "writeErrors" : [ ],
-        "writeConcernErrors" : [ ],
-        "nInserted" : 2,
-        "nUpserted" : 0,
-        "nMatched" : 0,
-        "nModified" : 0,
-        "nRemoved" : 0,
-        "upserted" : [ ]
-})
-
-MongoDB Enterprise > db.products.find()
-{ "_id" : ObjectId("64de92fade1e2faf1d1c5900"), "name" : "keyboard" }
-{ "_id" : ObjectId("64de9338de1e2faf1d1c5901"), "name" : "laptop", "price" : 999.99 }
-{ "_id" : ObjectId("64de943bde1e2faf1d1c5902"), "name" : "mouse", "description" : "razer mouse", "tags" : [ "computer", "gaming" ], "quantity" : 14, "created_at" : ISODate("2023-08-17T21:42:19.902Z") }
-{ "_id" : ObjectId("64de943bde1e2faf1d1c5903"), "name" : "monitor", "description" : "benq", "tags" : [ "computer", "gaming" ], "quantity" : 5, "created_at" : ISODate("2023-08-17T21:42:19.902Z") }
-
-MongoDB Enterprise > db.products.find().pretty()
-{ "_id" : ObjectId("64de92fade1e2faf1d1c5900"), "name" : "keyboard" }
-{
-        "_id" : ObjectId("64de9338de1e2faf1d1c5901"),
-        "name" : "laptop",
-        "price" : 999.99
-}
-{
-        "_id" : ObjectId("64de943bde1e2faf1d1c5902"),
-        "name" : "mouse",
-        "description" : "razer mouse",
-        "tags" : [
-                "computer",
-                "gaming"
-        ],
-        "quantity" : 14,
-        "created_at" : ISODate("2023-08-17T21:42:19.902Z")
-}
-{
-        "_id" : ObjectId("64de943bde1e2faf1d1c5903"),
-        "name" : "monitor",
-        "description" : "benq",
-        "tags" : [
-                "computer",
-                "gaming"
-        ],
-        "quantity" : 5,
-        "created_at" : ISODate("2023-08-17T21:42:19.902Z")
-}
-MongoDB Enterprise > db.products.find({
-...
-... name:"mouse"})
-{ "_id" : ObjectId("64de943bde1e2faf1d1c5902"), "name" : "mouse", "description" : "razer mouse", "tags" : [ "computer", "gaming" ], "quantity" : 14, "created_at" : ISODate("2023-08-17T21:42:19.902Z") }
-
-MongoDB Enterprise > db.products.find({price:999.99})
-{ "_id" : ObjectId("64de9338de1e2faf1d1c5901"), "name" : "laptop", "price" : 999.99 }
-MongoDB Enterprise > db.products.find({price:999.99}).pretty()
-{
-        "_id" : ObjectId("64de9338de1e2faf1d1c5901"),
-        "name" : "laptop",
-        "price" : 999.99
-}
-MongoDB Enterprise >
-
-MongoDB Enterprise > db.products.find()
-{ "_id" : ObjectId("64de92fade1e2faf1d1c5900"), "name" : "keyboard" }
-{ "_id" : ObjectId("64de9338de1e2faf1d1c5901"), "name" : "laptop", "price" : 999.99 }
-{ "_id" : ObjectId("64de943bde1e2faf1d1c5902"), "name" : "mouse", "description" : "razer mouse", "tags" : [ "computer", "gaming" ], "quantity" : 14, "created_at" : ISODate("2023-08-17T21:42:19.902Z") }
-{ "_id" : ObjectId("64de943bde1e2faf1d1c5903"), "name" : "monitor", "description" : "benq", "tags" : [ "computer", "gaming" ], "quantity" : 5, "created_at" : ISODate("2023-08-17T21:42:19.902Z") }
-
-MongoDB Enterprise > db.products.find({"tags": "computer"})
-{ "_id" : ObjectId("64de943bde1e2faf1d1c5902"), "name" : "mouse", "description" : "razer mouse", "tags" : [ "computer", "gaming" ], "quantity" : 14, "created_at" : ISODate("2023-08-17T21:42:19.902Z") }
-{ "_id" : ObjectId("64de943bde1e2faf1d1c5903"), "name" : "monitor", "description" : "benq", "tags" : [ "computer", "gaming" ], "quantity" : 5, "created_at" : ISODate("2023-08-17T21:42:19.902Z") }
-MongoDB Enterprise > db.products.find({"tags": "computer", "name": "monitor"})
-{ "_id" : ObjectId("64de943bde1e2faf1d1c5903"), "name" : "monitor", "description" : "benq", "tags" : [ "computer", "gaming" ], "quantity" : 5, "created_at" : ISODate("2023-08-17T21:42:19.902Z") }
-MongoDB Enterprise >
-
-MongoDB Enterprise > db.products.find({"tags":"computer"})
-{ "_id" : ObjectId("64de943bde1e2faf1d1c5902"), "name" : "mouse", "description" : "razer mouse", "tags" : [ "computer", "gaming" ], "quantity" : 14, "created_at" : ISODate("2023-08-17T21:42:19.902Z") }
-{ "_id" : ObjectId("64de943bde1e2faf1d1c5903"), "name" : "monitor", "description" : "benq", "tags" : [ "computer", "gaming" ], "quantity" : 5, "created_at" : ISODate("2023-08-17T21:42:19.902Z") }
-
-MongoDB Enterprise > db.products.find({"tags":"computer"}, {"name":1,"description":1})
-{ "_id" : ObjectId("64de943bde1e2faf1d1c5902"), "name" : "mouse", "description" : "razer mouse" }
-{ "_id" : ObjectId("64de943bde1e2faf1d1c5903"), "name" : "monitor", "description" : "benq" }
-
-MongoDB Enterprise > db.products.find({"tags":"computer"}, {"name":1,"description":1, "_id":0})
-{ "name" : "mouse", "description" : "razer mouse" }
-{ "name" : "monitor", "description" : "benq" }
-MongoDB Enterprise >
+MongoDB Enterprise > db.productos.find({})
+{ "_id" : ObjectId("64e53cfd18770f5f40b03aa4"), "name" : "keyboard" }
+{ "_id" : ObjectId("64e53d4518770f5f40b03aa5"), "name" : "monitor Benq" }
